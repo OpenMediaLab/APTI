@@ -12,5 +12,5 @@ __name__ = "__main__"
 from core import audio2image, image2audio
 
 if __name__ == "__main__":
-    # audio2image('test_files/test.wav', 'test_files/test.tiff')
-    image2audio('test_files/test.tiff', 'test_files/test2.wav')
+    audio2image('test_files/test2.wav', 'test_files/test2.tiff')
+    image2audio('test_files/test2.tiff', 'test_files/test3.wav')

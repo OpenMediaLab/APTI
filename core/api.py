@@ -26,7 +26,8 @@ def read_image(file_name):
 def audio2image(audio_filename, image_filename):
     rate, data =  scipy.io.wavfile.read(audio_filename)
 
-    data = data[:,0]
+    if len(data.shape) > 1:
+        data = data[:,0]
     assert isinstance(data, np.ndarray)
     data = pcm2float(data)
     x = data
