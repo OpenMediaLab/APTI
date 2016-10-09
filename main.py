@@ -26,7 +26,8 @@ def read_image(file_name):
 def audio2image(audio_filename, image_filename):
     rate, data =  scipy.io.wavfile.read(audio_filename)
 
-    data = data[:,0]
+    if len(data.shape) > 1:
+        data = data[:,0]
     assert isinstance(data, np.ndarray)
     data = pcm2float(data)
     x = data
@@ -54,6 +55,6 @@ def image2audio(image_filename, audio_filename):
     scipy.io.wavfile.write(audio_filename, fs, xhat)
 
 if __name__ == '__main__':
-    sample_file = 'Duke Ellington - Rext.wav'
-    audio2image(sample_file, 'test1.tiff')
-    image2audio('test1.tiff', 'after-' + sample_file)
+    sample_file = 'test1.wav'
+    audio2image(sample_file, 'test.tiff')
+    image2audio('test.tiff', 'after-' + sample_file)
