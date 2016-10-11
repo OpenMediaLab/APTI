@@ -1,0 +1,26 @@
+//
+   Created by dtysky on 16/10/11.
+
+doctype html
+html(lang="zh-CN")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, minimum-scale=1.0")
+        title Fa♂Muse
+        meta(name="keywords", content="OpenMediaLab,FaMuse")
+        meta(name="description", content="Audio process through image which is based on the state-of-the-art technology. ")
+        meta(name="author", content="OpenMediaLab")
+        link(rel="shortcut icon", type="image/png", href="/static/image/logo.png")
+        link(rel="stylesheet", href="/static/css/sky.css")
+        script(type="text/javascript", src="/static/js/jquery.min.js")
+        script(type="text/javascript", src="/static/js/jquery.ui.widget.js")
+        script(type="text/javascript", src="/static/js/jquery.iframe-transport.js")
+        script(type="text/javascript", src="/static/js/jquery.fileupload.js")
+
+    body
+        div#container
+            input#file-upload(type="file", name="file", data-url="/upload")
+            select#mode-selector
+            audio#audio-player
+        script(type="text/javascript", src="/static/js/main.js")

@@ -1,0 +1,291 @@
+@fonts: Verdana,Helvetica,arial,sans-serif;
+@font-size: 16px;
+@font-size-phone: 15px;
+@duration-time: .7s;
+@default-color: #6ca82b;
+
+.size(@w: undefined, @h: undefined) {
+  .test();
+  .test() when not (@w = undefined) {
+    width: @w;
+  }
+  .test() when not (@h = undefined) {
+    height: @h;
+  }
+}
+
+.max-size(@w: undefined, @h: undefined) {
+  .test();
+  .test() when not (@w = undefined) {
+    max-width: @w;
+  }
+  .test() when not (@h = undefined) {
+    max-height: @h;
+  }
+}
+
+.min-size(@w: undefined, @h: undefined) {
+  .test();
+  .test() when not (@w = undefined) {
+    min-width: @w;
+  }
+  .test() when not (@h = undefined) {
+    min-height: @h;
+  }
+}
+
+.full-width {
+  .size(@w: 100%);
+}
+
+.full-height {
+  .size(@h: 100%);
+}
+
+.full-size {
+  .full-width;
+  .full-height;
+}
+
+.full-max-width {
+  .max-size(@w: 100%);
+}
+
+.full-max-height {
+  .max-size(@h: 100%);
+}
+
+.full-max-size {
+  .full-max-width;
+  .full-max-height;
+}
+
+.position(@l: undefined, @r: undefined, @t: undefined, @b: undefined) {
+  .test();
+  .test() when not (@l = undefined) {
+    left: @l;
+  }
+  .test() when not (@r = undefined) {
+    right: @r;
+  }
+  .test() when not (@t = undefined) {
+    top: @t;
+  }
+  .test() when not (@b = undefined) {
+    bottom: @b;
+  }
+}
+
+.position-prefix(@l: undefined, @r: undefined, @t: undefined, @b: undefined, @all: undefined, @prefix) {
+  .test();
+  .test() when not (@l = undefined) {
+      @{prefix}-left: @l;
+  }
+  .test() when not (@r = undefined) {
+      @{prefix}-right: @r;
+  }
+  .test() when not (@t = undefined) {
+      @{prefix}-top: @t;
+  }
+  .test() when not (@b = undefined) {
+      @{prefix}-bottom: @b;
+  }
+  .test() when not (@all = undefined) {
+      @{prefix}: @all;
+  }
+}
+
+.padding(@l: undefined, @r: undefined, @t: undefined, @b: undefined, @all: undefined) {
+  .position-prefix(@l, @r, @t, @b, @all, padding);
+}
+
+.margin(@l: undefined, @r: undefined, @t: undefined, @b: undefined, @all: undefined) {
+  .position-prefix(@l, @r, @t, @b, @all, margin);
+}
+
+.border(
+  @l: undefined, @r: undefined, @t: undefined, @b: undefined,
+  @all: undefined, @rad: undefined, @color: undefined, @spac: undefined,
+  @width: undefined
+) {
+  .test();
+  .position-prefix(@l, @r, @t, @b, @all, border);
+  .test() when not (@rad = undefined) {
+      border-radius: @rad;
+  }
+  .test() when not (@color = undefined) {
+    border-color: @color;
+  }
+  .test() when not (@spac = undefined) {
+    border-spacing: @spac;
+  }
+  .test() when not (@width = undefined) {
+    border-width: @width;
+  }
+}
+
+.no-padding {
+  .padding(@all: 0);
+}
+
+.no-margin {
+  .margin(@all: 0);
+}
+
+.no-border {
+  .border(@all: 0);
+}
+
+.full {
+  .full-size;
+  .no-padding;
+  .no-margin;
+}
+
+.background(@all: undefined, @size: undefined, @pos: undefined, @re: undefined, @clip: undefined, @image: undefined, @color: undefined) {
+  .test();
+  .test() when not (@size = undefined) {
+      background-size: @size;
+  }
+  .test() when not (@pos = undefined) {
+      background-position: @pos;
+  }
+  .test() when not (@re = undefined) {
+      background-repeat: @re;
+  }
+  .test() when not (@clip = undefined) {
+      background-clip: @clip;
+  }
+  .test() when not (@image = undefined) {
+    background-image: @image;
+  }
+  .test() when not (@color = undefined) {
+    background-color: @color;
+  }
+  .test() when not (@all = undefined) {
+      background: @all;
+  }
+}
+
+.text(@size: undefined, @color: undefined, @align: undefined, @deco: undefined, @weight: undefined, @style: undefined) {
+  .test();
+  .test() when not (@size = undefined) {
+    font-size: @size;
+  }
+  .test() when not (@color = undefined) {
+    color: @color;
+  }
+  .test() when not (@align = undefined) {
+    text-align: @align;
+  }
+  .test() when not (@deco = undefined) {
+    text-decoration: @deco;
+  }
+  .test() when not (@weight = undefined) {
+    font-weight: @weight;
+  }
+  .test() when not (@style = undefined) {
+    font-style: @style;
+  }
+}
+
+.text-center() {
+  .text(@align: center);
+}
+
+.autoprefix-some(@name, @t) {
+  -webkit-@{name}: @t;
+  -moz-@{name}: @t;
+  -o-@{name}: @t;
+  -ms-@{name}: @t;
+    @{name}: @t;
+}
+
+.autoprefix-transition(@t) {
+  .autoprefix-some(transition, @t);
+}
+
+.autoprefix-transform(@t) {
+  .autoprefix-some(transform, @t);
+}
+
+.autoprefix-animation(@t) {
+  .autoprefix-some(animation, @t);
+}
+
+.icon-font-family {
+  font-family: 'icomoon' !important;
+}
+
+.font-icon(@name) {
+  .test();
+  .test() when (@name = share) {
+    content: "\e907";
+  }
+  .test() when (@name = jump) {
+    content: "\e906";
+  }
+  .test() when (@name = disqus) {
+    content: "\e22b";
+  }
+  .test() when (@name = return) {
+    content: "\e905";
+  }
+  .test() when (@name = jump) {
+    content: "\e906";
+  }
+  .test() when (@name = link) {
+    content: "\e906";
+  }
+  .test() when (@name = playstation) {
+    content: "\e900";
+  }
+  .test() when (@name = github) {
+    content: "\e902";
+  }
+  .test() when (@name = home) {
+    content: "\e88a";
+  }
+  .test() when (@name = rss) {
+    content: "\e908";
+  }
+  .test() when (@name = linkedin) {
+    content: "\e909";
+  }
+  .test() when (@name = resume) {
+    content: "\e90a";
+  }
+}
+
+
+.font-icon(@prefix, @name, @all-color: undefined, @size: undefined, @color: undefined, @bd-color: undefined, @padding: undefined) {
+  &:@{prefix} {
+    .font-icon(@name);
+    .test();
+    .test() when not (@all-color = undefined) {
+      .text(@color: @all-color);
+      .border(@color: @all-color);
+    }
+    .test() when not (@color = undefined) {
+      .text(@color: @color);
+    }
+    .test() when not (@bd-color = undefined) {
+      .border(@color: @bd-color);
+    }
+    .test() when not (@size = undefined) {
+      .text(@size: @size);
+    }
+    .test() when not (@padding = undefined) {
+      .padding(@all: @padding);
+    }
+  }
+}
+
+.box(@shadow: undefined) {
+  .test();
+  .test() when not (@shadow = undefined) {
+    -webkit-box-shadow: @shadow;
+    -moz-box-shadow: @shadow;
+    box-shadow: @shadow;
+  }
+}

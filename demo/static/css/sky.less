@@ -1,0 +1,34 @@
+@import (reference) "base.less";
+
+.full{
+  .no-padding;
+  .no-margin;
+  .full-height;
+  .full-width;
+}
+
+html, body, #container, #container-content {
+  .full;
+}
+
+div,span,h1,h2,h3,h4,h5,h6,a,p,button {
+  font-family: @fonts ! important;
+}
+
+h1,h2,h3,h4,h5,h6,p,a {
+  word-break: break-all;
+}
+
+button, a {
+  cursor: pointer;
+}
+
+a {
+  .no-margin;
+  .text(@deco: none, @color: black, @style: normal);
+}
+
+p {
+  .no-margin;
+}
+

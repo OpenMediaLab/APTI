@@ -13,18 +13,19 @@ import os
 
 config_dev = {
     "server_ip": "127.0.0.1",
-    "server_port": 4444,
+    "server_port": 4884,
     "dev_mode": True
 }
 
 config_pd = {
     "server_ip": "127.0.0.1",
-    "server_port": 4444,
+    "server_port": 4884,
     "dev_mode": False
 }
 
 config = {
-    "env": os.environ["PYTHON_ENV"]
+    "env": os.environ["PYTHON_ENV"],
+    "log_path": "./logs"
 }
 
 config.update(config_dev if os.environ["PYTHON_ENV"] == "development" else config_pd)

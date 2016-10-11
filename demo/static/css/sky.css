@@ -1,0 +1,51 @@
+.full {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+html,
+body,
+#container,
+#container-content {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p,
+button {
+  font-family: Verdana, Helvetica, arial, sans-serif ! important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  word-break: break-all;
+}
+button,
+a {
+  cursor: pointer;
+}
+a {
+  margin: 0;
+  color: black;
+  text-decoration: none;
+  font-style: normal;
+}
+p {
+  margin: 0;
+}
