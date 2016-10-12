@@ -8,9 +8,13 @@ import math
 import stft
 from utility import pcm2float, float2pcm
 
+image_width = 600.0
 fs = 44100
-T = 60 # sample time 60s
-frame_length = math.sqrt(T/float(fs))
+frame_length = image_width / fs
+T = 600 * frame_length
+# T = 32.67 # sample time
+# frame_length = math.sqrt(T/float(fs))
+
 hop_length = frame_length # forget it
 
 normal = lambda x:(x+300)/600
@@ -32,7 +36,7 @@ def audio2image(audio_filename, image_filename):
     assert isinstance(data, np.ndarray)
     data = pcm2float(data)
     x = data
-    x = x[:T*rate]
+    x = x[:int(T*rate)]
     X = stft.stft(x, fs, frame_length, hop_length)
     X_image = cv2.merge([normal(X.real) * 65535, normal(X.imag) * 65535, np.zeros(X.shape[:2])])
     X_image = X_image.astype('uint16')
