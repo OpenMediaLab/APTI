@@ -3,13 +3,14 @@ import numpy as np
 import scipy.io.wavfile
 import scipy.misc
 import tifffile
+import math
 
 import stft
 from utility import pcm2float, float2pcm
 
 fs = 44100
 T = 60 # sample time 60s
-frame_length = 0.1 # frame length 0.1s
+frame_length = math.sqrt(T/float(fs))
 hop_length = frame_length # forget it
 
 normal = lambda x:(x+300)/600
