@@ -10,7 +10,6 @@ __name__ = "Utils"
 
 import os
 import time
-from MySQLdb import connect
 from datetime import datetime, timedelta
 from config import config
 

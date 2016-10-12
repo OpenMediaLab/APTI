@@ -24,6 +24,7 @@ config_pd = {
 }
 
 config = {
+    "acceptable_type": ["audio/ogg", "audio/acc", "audio/mp3"],
     "env": os.environ["PYTHON_ENV"],
     "log_path": "./logs"
 }

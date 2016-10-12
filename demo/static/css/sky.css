@@ -49,3 +49,7 @@ a {
 p {
   margin: 0;
 }
+#progress-bar {
+  height: 18px;
+  background: green;
+}

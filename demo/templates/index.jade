@@ -21,6 +21,8 @@ html(lang="zh-CN")
     body
         div#container
             input#file-upload(type="file", name="file", data-url="/upload")
+            div#progress
+                div#progress-bar(style="width: 0")
             select#mode-selector
             audio#audio-player
         script(type="text/javascript", src="/static/js/main.js")
