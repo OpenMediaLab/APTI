@@ -52,7 +52,7 @@
         done: function (e, data) {
             console.log('done');
             data.started = false;
-            $('#uploader-start').prop('disabled', false);
+            $('#uploader-start').prop('disabled', true);
             $('#uploader-cancel').prop('disabled', true);
         },
         fail: function (e, data) {

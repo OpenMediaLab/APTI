@@ -12,9 +12,9 @@ sudo pip install virtualenv
 if [ -d python ]; then
 	echo "Back/python has been existed......"
 else
-    echo "Creating virtual env..."
+    echo "Creating virtual env......"
     virtualenv python
-    echo "Install pip..."
+    echo "Install pip......"
     python/bin/python ../get-pip.py
 fi
 echo "Install python modules"
