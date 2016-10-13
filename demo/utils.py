@@ -10,8 +10,11 @@ __name__ = "Utils"
 
 import os
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
+from pydub import AudioSegment
 from config import config
+from core import api as fa_muse
+
 
 
 def date_now():
@@ -21,56 +24,32 @@ def date_now():
     """
     return datetime.now()
 
-
-def date_from_string(s):
-    """
-    从字符串获取datetime
-    :param s: 字符串
-    :return: datetime对象
-    """
-    return datetime.strptime(s, "%Y-%m-%d %H:%M:%S")
-
-
 def date_to_string(date):
-    """
-    从datetime转换为字符串
-    :param date: datetime对象
-    :return: 字符串
-    """
     return date.strftime("%Y-%m-%d %H:%M:%S")
 
-def date_next_day(date):
-    """
-    从datetime获取下一日的整点值
-    :param date: datetime对象
-    :return: 字符串
-    """
-    next_day = add_date(date, 1, "day").strftime("%Y-%m-%d %H:%M:%S").split(" ")[0]
-    return datetime.strptime(next_day, "%Y-%m-%d")
-
 def date_to_timestamp(date):
-    """
-    将datetime转换为时间戳
-    :param t: datetime对象
-    :return: 时间戳, int
-    """
     return int(time.mktime(date.timetuple()))
 
+def media_normalize(type, fp, name):
+    src = None
+    if (type == "audio/mp3"):
+        src = AudioSegment.from_mp3(fp)
+    if (type == "audio/acc"):
+        src = AudioSegment.from_m4a(fp)
+    if (type == "audio/ogg"):
+        src = AudioSegment.from_ogg(fp)
+    export_path = './tmp/%s.wav' % name
+    src.export(export_path, "wav")
+    os.remove(fp)
+    return export_path
 
-def add_date(date, value, mode):
-    """
-    将datetime对象加上若干mode单位
-    :param date: datetime对象
-    :param value: 增量, int
-    :value mode: 运算类型, "day", "hour", "week"
-    :return: datetime对象
-    """
-    if mode == "hour":
-        return date + timedelta(hours=value)
-    if mode == "day":
-        return date + timedelta(days=value)
-    return date + timedelta(weeks=value)
-
+def media_to_image(type, fs):
+    name = "%d" % date_to_timestamp(date_now())
+    media_path = media_normalize(type, fs, name)
+    image_path = './tmp/%s.tiff' % name
+    fa_muse.audio2image(media_path, image_path)
+    os.remove(media_path)
+    return image_path
 
 class Logger(object):
     """

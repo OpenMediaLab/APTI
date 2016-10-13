@@ -49,6 +49,9 @@ a {
 p {
   margin: 0;
 }
+#file-upload {
+  display: none;
+}
 #progress-bar {
   height: 18px;
   background: green;

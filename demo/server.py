@@ -9,8 +9,8 @@ __email = "dtysky@outlook.com"
 __name__ = "server"
 
 from flask import Flask, Response, render_template, send_from_directory, request
-from utils import logger
-from os import path
+from utils import logger, media_to_image
+from json import dumps as to_json
 from config import config
 
 
@@ -63,12 +63,21 @@ class WebServer(object):
             f = request.files["file"]
             if f.content_type not in config["acceptable_type"]:
                 return self._response(
-                    {"message": "File type mast be '%s'" % ', '.join(config["acceptable_type"])},
+                    to_json({"message": "File type mast be '%s'" % ', '.join(config["acceptable_type"])}),
                     "application/json",
                     406
                 )
-            f.save("./tmp/%s" % f.filename)
-            return self._response({"id": f.filename}, "application/json")
+
+            media_path = "./tmp/%s" % f.filename
+            f.save(media_path)
+
+            result = {
+                "id": media_to_image(f.content_type, media_path),
+                "name": f.filename,
+                "type": f.content_type,
+                "size": len(f.read())
+            }
+            return self._response(to_json([result]), "application/json")
 
         @self._server.route("/<mode>/<path:path>", methods=['GET'])
         def files_handler(mode, path):

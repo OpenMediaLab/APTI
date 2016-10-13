@@ -42,7 +42,7 @@ def audio2image(audio_filename, image_filename):
     X_image = X_image.astype('uint16')
     print("finished stft.")
     # Plot the magnitude spectrogram.
-    save_image(X_image,image_filename)
+    save_image(X_image, image_filename)
 
 def image2audio(image_filename, audio_filename):
     X_image = read_image(image_filename)
