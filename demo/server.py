@@ -12,7 +12,8 @@ from flask import Flask, Response, render_template, send_from_directory, request
 from utils import logger, media_to_image
 from json import dumps as to_json
 from config import config
-
+from tempfile import NamedTemporaryFile
+import os
 
 class WebServer(object):
     def __init__(self):
@@ -68,16 +69,25 @@ class WebServer(object):
                     406
                 )
 
-            media_path = "./tmp/%s" % f.filename
-            f.save(media_path)
+            media = f.read()
+            temp = NamedTemporaryFile('wb')
+            temp.write(media)
 
             result = {
-                "id": media_to_image(f.content_type, media_path),
+                "id": media_to_image(f.content_type, temp),
                 "name": f.filename,
                 "type": f.content_type,
-                "size": len(f.read())
+                "size": len(media)
             }
             return self._response(to_json([result]), "application/json")
+
+        @self._server.route("/delete/<string:id>", methods=['POST'])
+        def delete_handler(id):
+            fp = "./static/tmp/%s.%s" % (id, config["image_type"])
+            if not os.path.exists(fp):
+                return self._response(to_json({"message": "File not found!"}), "application/json", 404)
+            os.remove(fp)
+            return self._response(to_json({"message": "Delete file successful!"}), "application/json")
 
         @self._server.route("/<mode>/<path:path>", methods=['GET'])
         def files_handler(mode, path):

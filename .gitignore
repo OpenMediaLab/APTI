@@ -6,5 +6,5 @@
 *.pyc
 *.tif
 *.log
-demo/tmp
+demo/static/tmp
 demo/python

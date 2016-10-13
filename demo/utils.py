@@ -14,6 +14,7 @@ from datetime import datetime
 from pydub import AudioSegment
 from config import config
 from core import api as fa_muse
+from tempfile import NamedTemporaryFile
 
 
 
@@ -30,26 +31,24 @@ def date_to_string(date):
 def date_to_timestamp(date):
     return int(time.mktime(date.timetuple()))
 
-def media_normalize(type, fp, name):
+def media_normalize(type, f, name):
     src = None
     if (type == "audio/mp3"):
-        src = AudioSegment.from_mp3(fp)
+        src = AudioSegment.from_mp3(f.name)
     if (type == "audio/acc"):
-        src = AudioSegment.from_m4a(fp)
+        src = AudioSegment.from_m4a(f.name)
     if (type == "audio/ogg"):
-        src = AudioSegment.from_ogg(fp)
-    export_path = './tmp/%s.wav' % name
-    src.export(export_path, "wav")
-    os.remove(fp)
-    return export_path
+        src = AudioSegment.from_ogg(f.name)
+    export_temp = NamedTemporaryFile()
+    src.export(export_temp, "wav")
+    return export_temp
 
-def media_to_image(type, fs):
+def media_to_image(type, f):
     name = "%d" % date_to_timestamp(date_now())
-    media_path = media_normalize(type, fs, name)
-    image_path = './tmp/%s.tiff' % name
-    fa_muse.audio2image(media_path, image_path)
-    os.remove(media_path)
-    return image_path
+    media_temp = media_normalize(type, f, name)
+    image_path = './static/tmp/%s.%s' % (name, config["image_type"])
+    fa_muse.audio2image(media_temp.name, image_path)
+    return name
 
 class Logger(object):
     """

@@ -4,20 +4,34 @@
 
 (function($) {
     var acceptableType = ["audio/ogg", "audio/acc", "audio/mp3"];
+    var state= {
+        initDone: false,
+        started: false,
+        currentId: ''
+    };
+
+    setImage("/static/image/default.png");
 
     $("#file-upload-button")
         .click(function() {
             $('#file-upload').click();
         });
 
+    window.onbeforeunload = function (e) {
+        if (state.initDone) {
+            deleteTemp(state.currentId);
+        }
+    };
+
     $('#file-upload').fileupload({
         dataType: 'json',
         singleFileUploads: true,
         add: function (e, data) {
-            if (!data.started) {
-                data.started = false;
+            console.log(state);
+            if (state.initDone) {
+                deleteTemp(state.currentId)
             }
-            if (data.started) {
+            if (state.started) {
                 data.abort();
             }
             $('#uploader-start')
@@ -47,17 +61,20 @@
             return allow;
         },
         started: function (e, data) {
-            data.started = true;
+            state.started = true;
         },
         done: function (e, data) {
-            console.log('done');
-            data.started = false;
+            console.log('done', data);
+            state.started = false;
+            state.initDone = true;
             $('#uploader-start').prop('disabled', true);
             $('#uploader-cancel').prop('disabled', true);
+            state.currentId = data.result[0].id;
+            setImage('/static/tmp/' + state.currentId + '.tiff');
         },
         fail: function (e, data) {
             console.log(e);
-            data.started = false;
+            state.started = false;
             $('#uploader-start').prop('disabled', true);
             $('#uploader-cancel').prop('disabled', true);
             $('#progress-bar').css('width', 0);
@@ -71,4 +88,23 @@
             );
         }
     });
+
+    function setImage(src) {
+        $("#current-image")
+            .attr('src', src);
+    }
+
+    function deleteTemp(id) {
+        $.ajax({
+            url: '/delete/' + id,
+            method: 'post',
+            success: function (data, status) {
+                console.log('Delete successful!');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
 })($);
