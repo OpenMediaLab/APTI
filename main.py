@@ -12,5 +12,15 @@ __name__ = "__main__"
 from core import audio2image, image2audio
 
 if __name__ == "__main__":
-    audio2image('test_files/test.wav', 'test_files/test.tiff')
-    image2audio('test_files/test.tiff', 'test_files/test2.wav')
+    # audio_file_name = "BWV-998-Aria"
+    # audio2image(audio_file_name+'.wav', audio_file_name+'.tiff')
+    # image2audio(audio_file_name + '.tiff', 'after-'+audio_file_name+'.wav')
+    #
+    # audio_file_name = "Duke Ellington - Rext"
+    # audio2image(audio_file_name+'.wav', audio_file_name+'.tiff')
+    # image2audio(audio_file_name + '.tiff', 'after-'+audio_file_name+'.wav')
+
+    audio_file_name = "output"
+    image2audio(audio_file_name + '.tiff', 'after-'+audio_file_name+'.wav')
+
+

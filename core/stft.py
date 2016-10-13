@@ -10,7 +10,7 @@ def stft(x, fs, framesz, hop):
     return X
 
 def istft(X, fs, T, hop):
-    x = scipy.zeros(T*fs)
+    x = scipy.zeros(int(T*fs))
     framesamp = X.shape[1]
     hopsamp = int(hop*fs)
     w = scipy.hanning(framesamp)
