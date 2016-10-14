@@ -12,13 +12,13 @@ import os
 
 
 config_dev = {
-    "server_ip": "127.0.0.1",
+    "server_ip": "0.0.0.0",
     "server_port": 4884,
     "dev_mode": True
 }
 
 config_pd = {
-    "server_ip": "127.0.0.1",
+    "server_ip": "0.0.0.0",
     "server_port": 4884,
     "dev_mode": False
 }

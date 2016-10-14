@@ -27,20 +27,22 @@
         dataType: 'json',
         singleFileUploads: true,
         add: function (e, data) {
-            console.log(state);
             if (state.initDone) {
                 deleteTemp(state.currentId)
             }
             if (state.started) {
                 data.abort();
             }
+            console.log(data);
             $('#uploader-start')
                 .prop('disabled', false)
+                .off('click')
                 .click(function () {
                     data.submit();
                 });
             $('#uploader-cancel')
                 .prop('disabled', true)
+                .off('click')
                 .click(function () {
                     data.abort();
                 });

@@ -8,6 +8,9 @@ __author__ = "Tianyu Dai (dtysky)"
 __email = "dtysky@outlook.com"
 __name__ = "__main__"
 
+import sys
+sys.path.append("../")
+
 from server import WebServer
 from config import config
 from tornado.wsgi import WSGIContainer

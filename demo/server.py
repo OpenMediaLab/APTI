@@ -12,7 +12,7 @@ from flask import Flask, Response, render_template, send_from_directory, request
 from utils import logger, media_to_image
 from json import dumps as to_json
 from config import config
-from tempfile import NamedTemporaryFile
+from StringIO import StringIO
 import os
 
 class WebServer(object):
@@ -70,11 +70,10 @@ class WebServer(object):
                 )
 
             media = f.read()
-            temp = NamedTemporaryFile('wb')
-            temp.write(media)
+            f_buf = StringIO(media)
 
             result = {
-                "id": media_to_image(f.content_type, temp),
+                "id": media_to_image(f.content_type, f_buf),
                 "name": f.filename,
                 "type": f.content_type,
                 "size": len(media)
